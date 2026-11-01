@@ -1,4 +1,4 @@
-name: Clear stuck Pages deployment
+name: Refresh Pages build
 on:
   push:
     paths:
@@ -7,11 +7,11 @@ permissions:
   contents: read
   pages: write
 jobs:
-  clear-stuck-deployment:
+  request-pages-build:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Cancel the specific stale Pages deployment
+      - name: Request a fresh build from the configured Pages source
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api --method POST repos/tychen0927/tychen0927.github.io/pages/deployments/6410f91044c46d96ad8b59975218e837b66fc04f/cancel
+        run: gh api --method POST repos/tychen0927/tychen0927.github.io/pages/builds
